@@ -1,0 +1,29 @@
+package com.example.demo.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entities.User;
+import com.example.demo.repositories.UserRepository;
+
+@Service
+public class UserService 
+{
+	@Autowired
+	UserRepository urepo;
+	
+	public User getUser(String id)
+	{
+		Optional<User> u = urepo.findById(id);
+		User st;
+		try
+		{
+			st = oc.get();
+		}
+		catch(Exception e)
+		{
+			st = null;
+		}
+		return st;
+	}
+}

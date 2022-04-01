@@ -1,0 +1,36 @@
+package com.example.demo.entities;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="users")
+public class User 
+{
+	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	String uid;
+	
+	@Column
+	String password;
+	
+	@Column
+	String fname;
+	
+	@Column
+	String lname;
+	
+	@Column
+	String email;
+	
+	@Column
+	String contactno;
+
+	public User() {
+		super();
+	}
+
+	
+}

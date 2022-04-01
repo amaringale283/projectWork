@@ -1,0 +1,6 @@
+package com.example.demo.services;
+
+@Service
+public class UserService {
+
+}

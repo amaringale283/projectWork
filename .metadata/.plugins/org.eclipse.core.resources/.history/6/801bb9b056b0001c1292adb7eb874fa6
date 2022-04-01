@@ -1,0 +1,24 @@
+package com.example.demo.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class RetailerService 
+{
+	@Autowired
+	RetailerRepository rrepo;
+	
+	public String saveRetailer(Retailer c)
+	{
+		try
+		{
+			rrepo.save(c);
+			return "Retailer registered";
+		}
+		catch(Exception e)
+		{
+			return "Registration of retailer failed";
+		}
+	}
+}

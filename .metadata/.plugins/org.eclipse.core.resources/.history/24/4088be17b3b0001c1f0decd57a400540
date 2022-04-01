@@ -1,0 +1,11 @@
+package com.example.demo.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="tbl_govauthority")
+public class GovernmentAuthority 
+{
+
+}

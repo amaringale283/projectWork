@@ -1,0 +1,42 @@
+package com.example.demo.services;
+
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entities.User;
+import com.example.demo.repositories.UserRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+@Service
+public class UserService 
+{
+	@Autowired
+	UserRepository urepo;
+	
+	public User getUser(String id)
+	{
+		Optional<User> u = urepo.findById(id);
+		User user;
+		try
+		{
+			user = u.get();
+		}
+		catch(NoSuchElementException e)
+		{
+			user = null;
+		}
+		return user;
+	}
+	
+	public User findUser(String uid)
+	{
+		User user = urepo.findUser(uid);
+		if(user == null)
+		{
+			throw new UsernameNotFoundException("User not found");
+		}
+	}
+}
