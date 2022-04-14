@@ -30,10 +30,10 @@ public class UserService
 		return user;
 	}
 	
-	public String findUser(String username, String password)
+	public User findUser(String username, String password)
 	{
 		User user = urepo.findUser(username, password);
-		if(user != null)
+		/*if(user != null)
 		{
 			if(user.getRole().equals("admin"))
 				return "admin";
@@ -41,15 +41,16 @@ public class UserService
 				return "ga";
 			else if(user.getRole().equals("retailer"))
 				return "retailer";
-			else return "customer";
+			else return "customer";	
 		}
 		else
-			return "User does not exist";
-		
+			return "notexist";*/
+			return user;
 	}
 	
 	public User saveUser(User u)
 	{
 		return urepo.save(u);
 	}
+	
 }

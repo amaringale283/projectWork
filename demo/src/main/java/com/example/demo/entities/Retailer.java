@@ -1,5 +1,8 @@
 package com.example.demo.entities;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -46,9 +50,23 @@ public class Retailer
 	@JoinColumn(name="loginid")
 	User user;
 	
+	@JsonIgnoreProperties("retailer")
+	@OneToMany(mappedBy ="retailer",cascade = CascadeType.ALL )
+	List<Order> order;
+	
+	@JsonIgnoreProperties("retailer")
+	@OneToMany(mappedBy = "retailer",cascade = CascadeType.ALL)
+	Set<RetailerStock> items;
+	
 	public Retailer()
 	{
 		super();
+	}
+	
+	public Retailer(int rid)
+	{
+		super();
+		this.rid = rid;
 	}
 	
 	public Retailer(int rid, String rname, int regno, String contactno, String address, int pincode, String gender,
@@ -72,7 +90,7 @@ public class Retailer
 		super();
 		this.rname = rname;
 		this.regno = regno;
-		this.contactno = "122323";
+		this.contactno = contactno;
 		this.address = address;
 		this.pincode = pincode;
 		this.gender = gender;
@@ -144,12 +162,18 @@ public class Retailer
 		this.status = status;
 	}
 
-	public User getUser() {
-		return user;
+	public List<Order> getOrder() {
+		return order;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setOrder(List<Order> order) {
+		this.order = order;
+	}
+
+	@Override
+	public String toString() {
+		return "Retailer [rid=" + rid + ", rname=" + rname + ", regno=" + regno + ", contactno=" + contactno
+				+ ", address=" + address + ", pincode=" + pincode + ", gender=" + gender + ", status=" + status + "]";
 	}
 	
 }

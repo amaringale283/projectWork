@@ -1,0 +1,148 @@
+package com.example.demo.entities;
+
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Table(name="tbl_orders")
+public class Order
+{
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	int orderid;
+	
+	@Column
+	double totalprice;
+	
+	@Column
+	String orderdate;
+	
+	@Column
+	String orderstatus;
+	
+	@JsonIgnoreProperties("order")
+	@ManyToOne
+	@JoinColumn(name="cid")
+	Customer customer;
+	
+	@JsonIgnoreProperties("order")
+	@ManyToOne
+	@JoinColumn(name="retailerid")
+	Retailer retailer;
+	
+	@JsonIgnoreProperties("order")
+	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
+	Set<Orderitem> items;
+	
+	public Order() {
+		super();	
+	}
+	
+	public Order(int orderid) {
+		super();
+		this.orderid = orderid;
+	}
+	
+	public Order(double totalprice, String orderdate, String orderstatus, Customer customer, Retailer retailer,
+			Set<Orderitem> items) {
+		super();
+		this.totalprice = totalprice;
+		this.orderdate = orderdate;
+		this.orderstatus = orderstatus;
+		this.customer = customer;
+		this.retailer = retailer;
+		this.items = items;
+	}
+	
+	public Order(int orderid, double totalprice, String orderdate, String orderstatus, Set<Orderitem> items) {
+		super();
+		this.orderid = orderid;
+		this.totalprice = totalprice;
+		this.orderdate = orderdate;
+		this.orderstatus = orderstatus;
+		this.items = items;
+	}
+	
+	public Order(double totalprice, String orderdate, String orderstatus, Customer customer, Retailer retailer) {
+		super();
+		this.totalprice = totalprice;
+		this.orderdate = orderdate;
+		this.orderstatus = orderstatus;
+		this.customer = customer;
+		this.retailer = retailer;
+	}
+
+	public int getOrderid() {
+		return orderid;
+	}
+
+	public void setOrderid(int orderid) {
+		this.orderid = orderid;
+	}
+
+	public double getTotalprice() {
+		return totalprice;
+	}
+
+	public void setTotalprice(double totalprice) {
+		this.totalprice = totalprice;
+	}
+
+	public String getOrderdate() {
+		return orderdate;
+	}
+
+	public void setOrderdate(String orderdate) {
+		this.orderdate = orderdate;
+	}
+
+	public String getOrderstatus() {
+		return orderstatus;
+	}
+
+	public void setOrderstatus(String orderstatus) {
+		this.orderstatus = orderstatus;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public Retailer getRetailer() {
+		return retailer;
+	}
+
+	public void setRetailer(Retailer retailer) {
+		this.retailer = retailer;
+	}
+
+	public Set<Orderitem> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<Orderitem> items) {
+		this.items = items;
+		for(Orderitem oi : items)
+			oi.setOrder(this);
+	}
+
+	
+	
+}

@@ -16,11 +16,11 @@ public class GovernmentAuthorityService
 		try
 		{
 			garepo.save(ga);
-			return "Ga registered";
+			return "registered";
 		}
 		catch(Exception e)
 		{
-			return "Registration of Ga failed";
+			return "registrationFailed";
 		}
 	}
 }

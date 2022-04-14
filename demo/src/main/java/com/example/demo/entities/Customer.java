@@ -1,5 +1,8 @@
 package com.example.demo.entities;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -40,20 +44,25 @@ public class Customer
 	
 	@Column
 	int familymembers;
-	/*
-	@Column
-	int loginid;
-	*/
+
 	@JsonIgnoreProperties("customer")
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="loginid")
 	User user;
 	
+	@JsonIgnoreProperties("customer")
+	@OneToMany(mappedBy ="customer",cascade = CascadeType.ALL )
+	List<Order> order;
+	
+	@JsonIgnoreProperties("customer")
+	@OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+	Set<CustomerStock> items;
+	
 	public Customer() 
 	{
 		super();
 	}
-
+	
 	public Customer(int cid, String cname, String contactno, String address, int pincode, String gender,
 			String aadharno, int familymembers, User user) 
 	{
@@ -68,6 +77,11 @@ public class Customer
 		this.familymembers = familymembers;
 	//	this.loginid = loginid;
 		this.user = user;
+	}
+
+	public Customer(int cid) {
+		super();
+		this.cid = cid;
 	}
 
 	public Customer(String cname, String contactno, String address, int pincode, String gender, String aadharno,
@@ -156,5 +170,21 @@ public class Customer
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public List<Order> getOrder() {
+		return order;
+	}
+
+	public void setOrder(List<Order> order) {
+		this.order = order;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [cid=" + cid + ", cname=" + cname + ", contactno=" + contactno + ", address=" + address
+				+ ", pincode=" + pincode + ", gender=" + gender + ", aadharno=" + aadharno + ", familymembers="
+				+ familymembers + ", user=" + user + "]";
+	}
+	
 	
 }

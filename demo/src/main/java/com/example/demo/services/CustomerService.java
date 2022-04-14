@@ -16,11 +16,16 @@ public class CustomerService
 		try
 		{
 			crepo.save(c);
-			return "Customer registered";
+			return "registered";
 		}
 		catch(Exception e)
 		{
-			return "Registration of customer failed";
+			return "registrationFailed";
 		}
+	}
+	
+	public int getCustomer(int loginid)
+	{
+		return crepo.getCustomer(loginid);
 	}
 }

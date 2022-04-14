@@ -16,11 +16,16 @@ public class RetailerService
 		try
 		{
 			rrepo.save(r);
-			return "Retailer registered";
+			return "registered";
 		}
 		catch(Exception e)
 		{
-			return "Registration of retailer failed";
+			return "registrationFailed";
 		}
+	}
+	
+	public int getRetailer(int loginid)
+	{
+		return rrepo.getRetailer(loginid);
 	}
 }

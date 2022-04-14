@@ -14,4 +14,5 @@ public interface UserRepository extends JpaRepository<User, Integer>
 {
 	@Query("select u from User u where u.username = ?1 and password = ?2")
 	public User findUser(String username, String password);
+	
 }
